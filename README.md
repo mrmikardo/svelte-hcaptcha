@@ -1,4 +1,4 @@
-*Psst — looking for an app template? Go here --> [sveltejs/template](https://github.com/sveltejs/template)*
+_Psst — looking for an app template? Go here --> [sveltejs/template](https://github.com/sveltejs/template)_
 
 ---
 
@@ -18,15 +18,13 @@ You can create a package that exports multiple components by adding them to the 
 
 TODO
 
-* [ ] some firm opinions about the best way to test components
-* [ ] update `degit` so that it automates some of the setup work
-
+- [ ] some firm opinions about the best way to test components
+- [ ] update `degit` so that it automates some of the setup work
 
 ## Setting up
 
-* Run `npm init` (or `yarn init`)
-* Replace this README with your own
-
+- Run `npm init` (or `yarn init`)
+- Replace this README with your own
 
 ## Consuming components
 

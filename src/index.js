@@ -1,1 +1,1 @@
-export { default as default } from './HCaptcha.svelte';
+export { default as default } from "./HCaptcha.svelte";
