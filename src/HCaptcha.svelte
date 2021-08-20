@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
   declare global {
     interface Window {
-      hCaptchaKey: string;
+      sitekey: string;
       hcaptchaOnLoad: Function;
       onSuccess: Function;
       onError: Function;
@@ -22,7 +22,7 @@
 
   const dispatch = createEventDispatcher();
 
-  export let hCaptchaKey = window.hCaptchaKey || undefined;
+  export let sitekey = window.sitekey || undefined;
   export let apihost;
   export let hl;
   export let reCaptchaCompat;
@@ -81,7 +81,7 @@
 
   $: if (mounted && loaded) {
     widgetID = hcaptcha.render(`h-captcha-${id}`, {
-      sitekey: hCaptchaKey,
+      sitekey: sitekey,
       hl: hl, // force a specific localisation
       theme: theme || CaptchaTheme.LIGHT,
       callback: "onSuccess",

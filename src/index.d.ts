@@ -1,7 +1,7 @@
 import type { SvelteComponent } from "svelte";
 
 export interface HCaptchaProps {
-  hCaptchaKey?: string;
+  sitekey?: string;
   apihost?: string;
   hl?: string;
   reCaptchaCompat?: boolean;
