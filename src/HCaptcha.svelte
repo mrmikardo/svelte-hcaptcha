@@ -28,11 +28,16 @@
   export let reCaptchaCompat;
   export let theme;
 
+  export const reset = () => {
+    if (mounted && loaded && widgetID) hcaptcha.reset(widgetID);
+  }
+
   // ensure that all captcha divs on a page are uniquely identifiable
   const id = Math.floor(Math.random() * 100);
 
   let mounted = false;
   let loaded = false;
+  let widgetID;
 
   // construct the script tag for hCaptcha remote resources
   const query = new URLSearchParams({
@@ -74,7 +79,7 @@
   });
 
   $: if (mounted && loaded) {
-    hcaptcha.render(`h-captcha-${id}`, {
+    widgetID = hcaptcha.render(`h-captcha-${id}`, {
       sitekey: hCaptchaKey,
       hl: hl, // force a specific localisation
       theme: theme || CaptchaTheme.LIGHT,
