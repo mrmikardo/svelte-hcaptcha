@@ -1,33 +1,94 @@
-_Psst — looking for an app template? Go here --> [sveltejs/template](https://github.com/sveltejs/template)_
+# svelte-hcaptcha
 
----
+## Description
 
-# component-template
+hCaptcha Component Library for SvelteJS.
 
-A base for building shareable Svelte components. Clone it with [degit](https://github.com/Rich-Harris/degit):
+[hCaptcha](https://www.hcaptcha.com/) is a drop-replacement for reCAPTCHA that protects user privacy, rewards websites, and helps companies get their data labeled.
 
-```bash
-npx degit sveltejs/component-template my-new-component
-cd my-new-component
-npm install # or yarn
+[Sign up](https://www.hcaptcha.com/signup-interstitial) at hCaptcha to get your sitekey today. **You need a sitekey to use this library**.
+
+This library is heavily inspired by [react-hcaptcha](https://github.com/hCaptcha/react-hcaptcha) :bowtie:
+
+## Installation
+
+You can install this library via npm with:
+
+`npm install svelte-hcaptcha --save-dev`
+
+## Usage
+
+The two requirements for usage are the `sitekey` prop and a parent component such as a `<form />`. The component will automatically include and load the hCaptcha API library and append it to the parent component. This is designed for ease of use with the hCaptcha API!
+
+The `HCaptcha` component dispatches events which you can listen to in the parents;
+ * `mount` - the component has been mounted
+ * `load` - the hCaptcha API script has successfully loaded
+ * `success` - a user has successfully completed an hCaptcha challenge. The payload of this event contains a `token` which can be used to verify the captcha
+ * `error` - something went wrong when the user attempted the captcha
+ * `close` - the captcha was closed
+
+If you don't supply the `sitekey` prop, then the component will try and load it from a `window.sitekey` variable. This can be useful e.g. when the component is to be mounted on a synchronously-rendered page, as you can inject the `window.sitekey` variable from a server backend.
+
+### Basic usage
+
+```svelte
+<form>
+  <HCaptcha 
+    sitekey={mySitekey} 
+    theme={CaptchaTheme.DARK}
+    on:success={handleSuccess}
+    on:error={handleError}
+  />
+</form>
 ```
 
-Your component's source code lives in `src/Component.svelte`.
+If you want to be able to **reset** the component (hint: you probably want to do this, for instance, if captcha verification fails), then you'll need to *bind* to it in the parent. The component exposes a `.reset()` method;
 
-You can create a package that exports multiple components by adding them to the `src` directory and editing `src/index.js` to reexport them as named exports.
+```svelte
+<script>
+  let captcha;
 
-TODO
+  const handleError = () => {
+    captcha.reset();
+  }
+</script>
 
-- [ ] some firm opinions about the best way to test components
-- [ ] update `degit` so that it automates some of the setup work
+...
 
-## Setting up
+<form>
+  <HCaptcha 
+    bind:this={captcha}
+    on:error={handleError}
+  />
+</form>
+```
 
-- Run `npm init` (or `yarn init`)
-- Replace this README with your own
+## Props
 
-## Consuming components
+| Name     | Values/Type | Required | Default | Description |
+|----------|-------------|----------|---------|-------------|
+|`sitekey` |`String`      |Yes      | `-`     |This is your sitekey, this allows you to load captcha. If you need a sitekey, please visit [hCaptcha](https://www.hcaptcha.com/), and sign up to get your sitekey.|
+|`apihost` |`String`|No|`https://hcaptcha.com`|See enterprise docs.|
+|`hl`|`String`|No|`-`|Forces a specific localization. See [here](https://docs.hcaptcha.com/languages/) for supported language codes.|
+|`reCaptchaCompa`|`Boolean`|No|`null`|Disable drop-in replacement for reCAPTCHA with `false` to prevent hCaptcha from injecting into `window.grecaptcha`.|
+|`theme`|`CaptchaTheme`|No|`CaptchaTheme.LIGHT`|hCaptcha supports a dark mode and a light mode. By default we render the light variant; set to `CaptchaTheme.DARK` to get the dark mode variant.|
 
-Your package.json has a `"svelte"` field pointing to `src/index.js`, which allows Svelte apps to import the source code directly, if they are using a bundler plugin like [rollup-plugin-svelte](https://github.com/sveltejs/rollup-plugin-svelte) or [svelte-loader](https://github.com/sveltejs/svelte-loader) (where [`resolve.mainFields`](https://webpack.js.org/configuration/resolve/#resolve-mainfields) in your webpack config includes `"svelte"`). **This is recommended.**
+## Events
 
-For everyone else, `npm run build` will bundle your component's source code into a plain JavaScript module (`dist/index.mjs`) and a UMD script (`dist/index.js`). This will happen automatically when you publish your component to npm, courtesy of the `prepublishOnly` hook in package.json.
+|Event|Params|Description|
+|`success`|`token`|Fires when a user successfully completes a captcha challenge. Contains the token which is required to verify the captcha.|
+|`load`|`-`|Fires when the hCaptcha api script has finished loading.|
+|`mount`|`-`|Fires when the component is mounted.|
+|`close`|`-`|Fires when the captcha is closed by the user (i.e. s/he has not completed it).|
+|`error`|`-`|Fires when hCaptcha encounters an error and cannot continue. If you specify an error callback, you must inform the user that they should retry.|
+
+## Methods
+
+|Method|Description|
+|`reset()`|Reset the current challenge.|
+
+## Contributing
+
+Pull requests, suggestions, comments, critiques, all happily welcome :)
+
+Please get in touch with the maintainers if you need help or advice to get the project to run.
