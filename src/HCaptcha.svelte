@@ -27,7 +27,6 @@
   export let hl;
   export let reCaptchaCompat;
   export let theme;
-  export let onLoadListeners = [];
 
   // ensure that all captcha divs on a page are uniquely identifiable
   const id = Math.floor(Math.random() * 100);
@@ -43,11 +42,8 @@
   const scriptSrc = `${apihost || "https://hcaptcha.com"}/${query.toString()}`;
 
   window.hcaptchaOnLoad = () => {
-    // handle onload callbacks from consumers
-    onLoadListeners.filter((listener) => {
-      listener();
-      return false;
-    });
+    // consumers can attach custom on:load handlers
+    dispatch("load")
     loaded = true;
   };
 
