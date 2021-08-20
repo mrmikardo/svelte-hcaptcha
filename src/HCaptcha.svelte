@@ -55,12 +55,10 @@
 
   window.onError = () => {
     dispatch("error");
-    // TODO add support for consumer onError handlers
   };
 
   window.onClose = () => {
     dispatch("close");
-    // TODO add support for consumer onClose handlers
   };
 
   onMount(() => {
