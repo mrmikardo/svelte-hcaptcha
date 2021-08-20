@@ -27,13 +27,13 @@
   export let hl;
   export let reCaptchaCompat;
   export let theme;
+  export let onLoadListeners = [];
 
   // ensure that all captcha divs on a page are uniquely identifiable
   const id = Math.floor(Math.random() * 100);
 
   let mounted = false;
   let loaded = false;
-  let onLoadListeners = [];
 
   // construct the script tag for hCaptcha remote resources
   const query = new URLSearchParams({
