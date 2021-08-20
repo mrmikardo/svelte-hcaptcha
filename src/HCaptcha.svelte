@@ -67,6 +67,7 @@
   };
 
   onMount(() => {
+    dispatch("mount");
     mounted = true;
   });
 
