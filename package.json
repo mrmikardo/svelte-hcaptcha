@@ -1,6 +1,6 @@
 {
   "name": "svelte-hcaptcha",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": "https://github.com/mrmikardo/svelte-hcaptcha",
   "description": "An <HCaptcha> component for Svelte apps.",
   "svelte": "src/index.js",
