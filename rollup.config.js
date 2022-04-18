@@ -13,7 +13,7 @@ const name = pkg.name
   .replace(/-\w/g, (m) => m[1].toUpperCase());
 
 export default {
-  input: "src/index.ts",
+  input: "src/index.js",
   output: [
     { file: pkg.module, format: "es", sourcemap: !production },
     { file: pkg.main, format: "umd", name, sourcemap: !production },
