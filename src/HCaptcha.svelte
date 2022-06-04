@@ -6,6 +6,7 @@
       onSuccess: Function;
       onError: Function;
       onClose: Function;
+      onExpired: Function;
     }
   }
 
@@ -77,6 +78,10 @@
       window.onClose = () => {
         dispatch('close');
       };
+      
+      window.onExpired = () => {
+        dispatch('expired');
+      };
     }
 
     dispatch('mount');
@@ -101,6 +106,7 @@
       callback: 'onSuccess',
       'error-callback': 'onError',
       'close-callback': 'onClose',
+      'expired-callback': 'onExpired',
       size,
     });
   }

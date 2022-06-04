@@ -6,6 +6,7 @@ export interface HCaptchaProps {
   hl?: string;
   reCaptchaCompat?: boolean;
   theme?: CaptchaTheme;
+  size?: string;
 }
 
 declare class HCaptcha extends SvelteComponent {
