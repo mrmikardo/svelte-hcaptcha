@@ -7,6 +7,7 @@
       onError: Function;
       onClose: Function;
       onExpired: Function;
+      hcaptcha: any;
     }
   }
 
