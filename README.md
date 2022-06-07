@@ -33,7 +33,7 @@ You can read more about these events [below](#events). In particular, errors are
 
 If you don't supply the `sitekey` prop to the `HCaptcha` component, then it will try and load this from a `window.sitekey` variable. This approach can be useful e.g. when the component is to be mounted on a synchronously-rendered page, as you can inject the `window.sitekey` variable from a server backend.
 
-Note also that [it's not possible](https://docs.hcaptcha.com/#local-development) to develop against `localhost` or `127.0.0.1` when using this component. A useful tool in this scenario is [ngrok](https://ngrok.com/).
+Note also that it's not possible to develop against `localhost` or `127.0.0.1` when using this component. A useful tool in this scenario is [ngrok](https://ngrok.com/). On Linux, you can also add an entry into `/etc/hosts` like `127.0.0.1    test.mydomain.com`, then you can run svelte with `--host test.mydomain.com`. This is explained in the [HCaptcha docs](https://docs.hcaptcha.com/#local-development).
 
 ### Basic usage
 
