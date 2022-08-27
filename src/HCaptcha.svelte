@@ -41,8 +41,7 @@
     if (mounted && loaded && widgetID) return hcaptcha.execute(widgetID, options);
   };
 
-  // ensure that all captcha divs on a page are uniquely identifiable
-  const id = Math.floor(Math.random() * 100);
+  let targetDiv: HTMLDivElement;
 
   let mounted = false;
   let loaded = false;
@@ -100,7 +99,7 @@
   });
 
   $: if (mounted && loaded) {
-    widgetID = hcaptcha.render(`h-captcha-${id}`, {
+    widgetID = hcaptcha.render(targetDiv, {
       sitekey,
       hl, // force a specific localisation
       theme,
@@ -119,4 +118,4 @@
   {/if}
 </svelte:head>
 
-<div id="h-captcha-{id}" />
+<div bind:this={targetDiv} />
