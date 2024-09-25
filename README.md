@@ -15,19 +15,20 @@ This library is heavily inspired by [react-hcaptcha](https://github.com/hCaptcha
 
 You can install this library via npm:
 
-`npm install svelte-hcaptcha --save-dev`
+`pnpm install svelte-hcaptcha --save-dev`
 
 ## Usage
 
 The two requirements for usage are the `sitekey` prop and a parent component such as a `<form />`. The component `HCaptcha` component will automatically include and load the hCaptcha API library and append it to the parent component, ready for use.
 
 The `HCaptcha` component dispatches various events which you can listen to in the parent;
- * `mount` - the component has been mounted
- * `load` - the hCaptcha API script has successfully loaded
- * `success` - a user has successfully completed an hCaptcha challenge. The payload of this event contains a `token` which can be used to verify the captcha
- * `error` - something went wrong when the user attempted the captcha
- * `close` - the captcha was closed
- * `expired` - the captcha has expired and needs to be re-verified
+
+- `mount` - the component has been mounted
+- `load` - the hCaptcha API script has successfully loaded
+- `success` - a user has successfully completed an hCaptcha challenge. The payload of this event contains a `token` which can be used to verify the captcha
+- `error` - something went wrong when the user attempted the captcha
+- `close` - the captcha was closed
+- `expired` - the captcha has expired and needs to be re-verified
 
 You can read more about these events [below](#events). In particular, errors are described [here](https://docs.hcaptcha.com/configuration/#error-codes).
 
@@ -39,8 +40,8 @@ Note also that it's not possible to develop against `localhost` or `127.0.0.1` w
 
 ```svelte
 <form>
-  <HCaptcha 
-    sitekey={mySitekey} 
+  <HCaptcha
+    sitekey={mySitekey}
     theme={CaptchaTheme.DARK}
     on:success={handleSuccess}
     on:error={handleError}
@@ -48,7 +49,7 @@ Note also that it's not possible to develop against `localhost` or `127.0.0.1` w
 </form>
 ```
 
-If you want to be able to **reset** the component (hint: you probably want to do this, for instance, if captcha verification fails), then you'll need to *bind* to it in the parent. The component exposes a `.reset()` method;
+If you want to be able to **reset** the component (hint: you probably want to do this, for instance, if captcha verification fails), then you'll need to _bind_ to it in the parent. The component exposes a `.reset()` method;
 
 ```svelte
 <script>
@@ -56,16 +57,13 @@ If you want to be able to **reset** the component (hint: you probably want to do
 
   const handleError = () => {
     captcha.reset();
-  }
+  };
 </script>
 
 ...
 
 <form>
-  <HCaptcha 
-    bind:this={captcha}
-    on:error={handleError}
-  />
+  <HCaptcha bind:this={captcha} on:error={handleError} />
 </form>
 ```
 
@@ -102,3 +100,41 @@ If you want to be able to **reset** the component (hint: you probably want to do
 Pull requests, suggestions, comments, critiques - all welcome :)
 
 Please get in touch with the maintainers if you need help or advice to get the project to run.
+
+
+## Developing
+
+Install dependencies with `pnpm install` (or `npm install` or `yarn`), to start a development server:
+
+```bash
+pnpm run dev
+
+# or start the server and open the app in a new browser tab
+pnpm run dev -- --open
+```
+
+Everything inside `src/lib` is part of the library.
+
+## Building
+
+To build this library:
+
+```bash
+pnpm run package
+```
+
+To create a production version:
+
+```bash
+pnpm run build
+```
+
+You can preview the production build with `pnpm run preview`.
+
+## Publishing
+
+To publish your library to [npm](https://www.npmjs.com):
+
+```bash
+pnpm publish
+```
